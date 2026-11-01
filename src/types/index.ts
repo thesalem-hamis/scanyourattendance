@@ -1,25 +1,17 @@
-export type ChurchGroup = 'Church 1' | 'Church 2';
+import type { Database } from './database.types';
 
-export interface Member {
-  id: string;
-  member_code: string;
-  full_name: string;
-  phone: string;
-  email?: string | null;
-  gender?: 'Male' | 'Female' | null;
-  church_name: ChurchGroup;
-  status: 'active' | 'inactive';
-  created_at: string;
-}
+export type { Database } from './database.types';
 
-export interface AttendanceRecord {
-  id: string;
-  member_id: string;
-  service_date: string;
-  check_in_time: string;
-  check_in_method: 'qr_scan' | 'manual_search' | 'self_form';
-  member?: Member; // Joined relation
-}
+type PublicSchema = Database['public'];
+
+export type Profile = PublicSchema['Tables']['profiles']['Row'];
+export type Member = PublicSchema['Tables']['members']['Row'];
+export type AttendanceRecord = PublicSchema['Tables']['attendance']['Row'];
+
+export type StaffRole = PublicSchema['Enums']['staff_role_enum'];
+export type ChurchGroup = PublicSchema['Enums']['church_group_enum'];
+export type Gender = PublicSchema['Enums']['gender_enum'];
+export type CheckInMethod = PublicSchema['Enums']['checkin_method_enum'];
 
 export interface DashboardStats {
   totalMembers: number;
@@ -29,3 +21,4 @@ export interface DashboardStats {
   church1AttendanceToday: number;
   church2AttendanceToday: number;
 }
+
