@@ -1,0 +1,1 @@
+export { registerSchema, type RegisterValues } from './schemas/registerSchema';

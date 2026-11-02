@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import { LayoutDashboard } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { APP_NAME } from '@/config/constants';
 import { ROUTES } from '@/config/routes';
 import { useSession } from '@/features/auth';
@@ -18,19 +18,13 @@ export function UsherLayout() {
           <div className="font-semibold">{APP_NAME}</div>
           <div className="text-xs text-muted-foreground">Check-in</div>
         </div>
-
         <div className="flex items-center gap-2">
           {isAdmin && (
-            <Button
-              variant="ghost"
-              size="sm"
-              render={<Link to={ROUTES.admin.dashboard} />}
-            >
+            <Link to={ROUTES.admin.dashboard} className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
               <LayoutDashboard className="mr-2 size-4" />
               Dashboard
-            </Button>
+            </Link>
           )}
-
           <UserMenu />
         </div>
       </header>
@@ -41,4 +35,3 @@ export function UsherLayout() {
     </div>
   );
 }
-//you removed the asChild

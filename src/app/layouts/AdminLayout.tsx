@@ -1,10 +1,10 @@
 import { Link, Outlet } from 'react-router-dom';
 import { ScanLine } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { APP_NAME } from '@/config/constants';
 import { ROUTES } from '@/config/routes';
 import { AdminSidebar } from './components/AdminSidebar';
-import { MobileBottomNav} from './components/MobileBottomNav';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { UserMenu } from './components/UserMenu';
 
 export function AdminLayout() {
@@ -20,12 +20,10 @@ export function AdminLayout() {
           <span className="hidden md:block" />
           <div className="flex items-center gap-2">
             {/* Admin can scan too: same screen the ushers use */}
-            <Button size="sm">
-              <Link to={ROUTES.usher}>
-                <ScanLine className="mr-2 size-4" />
-                Scan
-              </Link>
-            </Button>
+            <Link to={ROUTES.usher} className={buttonVariants({ size: 'sm' })}>
+              <ScanLine className="mr-2 size-4" />
+              Scan
+            </Link>
             <UserMenu />
           </div>
         </header>
