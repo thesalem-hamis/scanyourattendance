@@ -11,6 +11,11 @@ export function todayInLagos(now: Date = new Date()): string {
   }).format(now);
 }
 
+/** The Lagos calendar day (YYYY-MM-DD) of a timestamp. */
+export function toLagosDate(iso: string): string {
+  return todayInLagos(new Date(iso));
+}
+
 /** "9:05 am", in Lagos time, from a timestamp. */
 export function formatTime(iso: string): string {
   return new Intl.DateTimeFormat('en-NG', {

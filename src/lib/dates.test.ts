@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatServiceDate, formatTime, todayInLagos } from './dates';
+import { formatServiceDate, formatTime, toLagosDate, todayInLagos } from './dates';
 
 describe('todayInLagos', () => {
   it('uses the Lagos calendar day, not UTC', () => {
@@ -11,6 +11,13 @@ describe('todayInLagos', () => {
 
   it('is zero-padded YYYY-MM-DD', () => {
     expect(todayInLagos(new Date('2026-03-05T10:00:00Z'))).toBe('2026-03-05');
+  });
+});
+
+describe('toLagosDate', () => {
+  it('gives the Lagos day of a timestamp', () => {
+    expect(toLagosDate('2026-11-01T23:30:00Z')).toBe('2026-11-02');
+    expect(toLagosDate('2026-11-01T08:00:00+00:00')).toBe('2026-11-01');
   });
 });
 
