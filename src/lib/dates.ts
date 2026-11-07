@@ -37,3 +37,11 @@ export function formatServiceDate(serviceDate: string): string {
     year: 'numeric',
   }).format(new Date(`${serviceDate}T12:00:00Z`));
 }
+
+/** "1 Nov", from a YYYY-MM-DD service date: short enough for chart axes. */
+export function formatShortDate(serviceDate: string): string {
+  return new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', day: 'numeric', month: 'short' }).format(
+    new Date(`${serviceDate}T12:00:00Z`),
+  );
+}
+
