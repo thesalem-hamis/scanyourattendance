@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatServiceDate, formatTime, toLagosDate, todayInLagos } from './dates';
+import { formatServiceDate, formatShortDate, formatTime, toLagosDate, todayInLagos } from './dates';
 
 describe('todayInLagos', () => {
   it('uses the Lagos calendar day, not UTC', () => {
@@ -31,5 +31,12 @@ describe('formatTime', () => {
 describe('formatServiceDate', () => {
   it('names the weekday', () => {
     expect(formatServiceDate('2026-11-01')).toMatch(/Sunday,? 1 Nov(ember)? 2026/);
+  });
+});
+
+describe('formatShortDate', () => {
+  it('is day and month only', () => {
+    expect(formatShortDate('2026-11-01')).toBe('1 Nov');
+    expect(formatShortDate('2026-01-25')).toBe('25 Jan');
   });
 });
