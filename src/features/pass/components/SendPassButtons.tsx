@@ -11,18 +11,20 @@ interface SendPassButtonsProps {
   pass: Pick<Pass, 'fullName' | 'churchGroup' | 'qrToken'>;
   /** E.164 number. Leave out to let the person pick who to send it to. */
   phone?: string | null;
+  /** The wording to use. Staff screens pass the saved wording; the public pass page uses the built-in one. */
+  template?: string;
 }
 
 /** Click-to-send links: the message is sent from the sender's own WhatsApp / SMS app. */
-export function SendPassButtons({ pass, phone }: SendPassButtonsProps) {
+export function SendPassButtons({ pass, phone, template = DEFAULT_MESSAGE_TEMPLATES.passShare }: SendPassButtonsProps) {
   const { whatsappLink, smsLink } = useMemo(() => {
-    const text = renderTemplate(DEFAULT_MESSAGE_TEMPLATES.passShare, {
+    const text = renderTemplate(template, {
       name: pass.fullName.split(/\s+/)[0] ?? pass.fullName,
       church: CHURCHES[pass.churchGroup].label,
       link: buildPassUrl(pass.qrToken),
     });
     return { whatsappLink: buildWhatsAppLink(phone, text), smsLink: buildSmsLink(phone, text) };
-  }, [pass.fullName, pass.churchGroup, pass.qrToken, phone]);
+  }, [pass.fullName, pass.churchGroup, pass.qrToken, phone, template]);
 
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -42,3 +44,4 @@ export function SendPassButtons({ pass, phone }: SendPassButtonsProps) {
     </div>
   );
 }
+

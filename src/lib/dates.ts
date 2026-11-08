@@ -45,3 +45,14 @@ export function formatShortDate(serviceDate: string): string {
   );
 }
 
+/** "Mon, 9:15 am", in Lagos time: when something happened this week. */
+export function formatDayTime(iso: string): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: LAGOS,
+    weekday: 'short',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(new Date(iso));
+}
+

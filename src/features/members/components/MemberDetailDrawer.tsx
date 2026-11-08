@@ -6,6 +6,7 @@ import { StatusPill } from '@/components/common/StatusPill';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { SendPassButtons } from '@/features/pass';
+import { useMessageTemplates } from '@/features/settings';
 import { formatServiceDate, toLagosDate } from '@/lib/dates';
 import { getErrorMessage } from '@/lib/error';
 import { formatPhoneDisplay } from '@/lib/phone';
@@ -22,6 +23,7 @@ interface MemberDetailDrawerProps {
 
 export function MemberDetailDrawer({ memberId, onClose, onEdit, onToggleStatus }: MemberDetailDrawerProps) {
   const { data: member, isPending, isError, error, refetch } = useMember(memberId);
+  const { templates } = useMessageTemplates();
 
   return (
     <Sheet open={memberId !== null} onOpenChange={(open) => !open && onClose()}>
@@ -89,6 +91,7 @@ export function MemberDetailDrawer({ memberId, onClose, onEdit, onToggleStatus }
                   <SendPassButtons
                     pass={{ fullName: member.fullName, churchGroup: member.churchGroup, qrToken: member.qrToken }}
                     phone={member.phone}
+                    template={templates.passShare}
                   />
                 </section>
               )}
