@@ -319,6 +319,27 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      app_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Relationships: []
+      }
       attendance: {
         Row: {
           check_in_method: Database["public"]["Enums"]["checkin_method_enum"]
@@ -347,6 +368,44 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "attendance_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      followups: {
+        Row: {
+          channel: string
+          contacted_at: string
+          contacted_by: string | null
+          id: string
+          member_id: string
+          note: string | null
+          service_date: string
+        }
+        Insert: {
+          channel: string
+          contacted_at?: string
+          contacted_by?: string | null
+          id?: string
+          member_id: string
+          note?: string | null
+          service_date: string
+        }
+        Update: {
+          channel?: string
+          contacted_at?: string
+          contacted_by?: string | null
+          id?: string
+          member_id?: string
+          note?: string | null
+          service_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "followups_member_id_fkey"
             columns: ["member_id"]
             isOneToOne: false
             referencedRelation: "members"
@@ -422,6 +481,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      absentees: {
+        Args: {
+          p_church?: Database["public"]["Enums"]["church_group_enum"]
+          p_date: string
+        }
+        Returns: {
+          church_group: Database["public"]["Enums"]["church_group_enum"]
+          contacted_at: string
+          contacted_channel: string
+          full_name: string
+          last_attended: string
+          member_code: string
+          member_id: string
+          phone: string
+        }[]
+      }
       attendance_summary: {
         Args: { p_date: string }
         Returns: {
